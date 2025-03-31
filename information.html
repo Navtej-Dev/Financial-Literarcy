@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finwise - Financial Literacy</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .logo span {
+            color: #ecf0f1;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .nav-links a.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('/api/placeholder/1200/400') no-repeat center center/cover;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Information Section */
+        .info-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .info-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            background-color: white;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            border-left-color: #3498db;
+            background-color: #ecf0f1;
+        }
+        
+        /* Main Content */
+        .main-content {
+            line-height: 1.8;
+        }
+        
+        .main-content h2 {
+            color: #2c3e50;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.8rem;
+            scroll-margin-top: 2rem;
+        }
+        
+        .main-content h3 {
+            color: #2c3e50;
+            margin: 1.2rem 0 0.8rem;
+            font-size: 1.4rem;
+        }
+        
+        .main-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .main-content ul {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .main-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .tip-card {
+            background-color: #ebf5fb;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning-card {
+            background-color: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .grid-item {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .grid-item h3 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        
+        .resource-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            background-color: #3498db;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .resource-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #3498db;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            text-align: center;
+            color: #7f8c8d;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            background-color: #ecf0f1;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #3498db;
+            border-radius: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f7fa;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin: 0 0.5rem;
+            }
+            
+            .info-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container navbar">
+            <div class="logo">Fin<span>wise</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="information.html" class="active">Learn</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <a href="login.html" class="btn">Login</a>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Financial Literacy</h1>
+            <p>Empowering yourself through financial education is the first step toward building wealth and securing your future.</p>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-content">
+                <!-- Sidebar Navigation -->
+                <div class="sidebar">
+                    <h3>Topics</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#basics" class="active">Basics of Finance</a></li>
+                        <li><a href="#budgeting">Budgeting</a></li>
+                        <li><a href="#saving">Saving</a></li>
+                        <li><a href="#investing">Investing</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <h2 id="basics">Basics of Finance</h2>
+                    <p>Understanding the fundamentals of personal finance is essential for making informed decisions about your money. Financial literacy empowers you to take control of your financial future and build wealth over time.</p>
+                    
+                    <h3>Key Financial Concepts</h3>
+                    <div class="info-grid">
+                        <div class="grid-item">
+                            <h3>Income</h3>
+                            <p>Money you receive from work, investments, or other sources. Your primary income typically comes from your job in the form of a salary or wages.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Expenses</h3>
+                            <p>Money you spend on goods and services. Expenses can be categorized as fixed (regular payments like rent) or variable (changing costs like groceries).</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Assets</h3>
+                            <p>Things you own that have value, such as cash, investments, property, or possessions. Assets can appreciate (gain value) or depreciate (lose value) over time.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Liabilities</h3>
+                            <p>Debts you owe, such as loans, mortgages, or credit card balances. Liabilities represent financial obligations that must be repaid.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Understanding Net Worth</h3>
+                    <p>Your net worth is a snapshot of your financial health calculated by subtracting your liabilities from your assets. It represents what you would have left if you sold all your assets and paid off all your debts.</p>
+                    
+                    <div class="info-card">
+                        <h3>Net Worth Formula</h3>
+                        <p><strong>Net Worth = Total Assets - Total Liabilities</strong></p>
+                        <p>A positive net worth indicates that your assets exceed your liabilities, while a negative net worth means you owe more than you own. Increasing your net worth over time is a sign of improving financial health.</p>
+                    </div>
+                    
+                    <h3>The Power of Compound Interest</h3>
+                    <p>Compound interest is often called the "eighth wonder of the world" because it allows your money to grow exponentially over time. When you earn interest on both your initial investment and the interest it has already earned, your wealth can grow significantly.</p>
+                    
+                    <div class="tip-card">
+                        <h3>Example of Compound Interest</h3>
+                        <p>If you invest $1,000 with an annual interest rate of 7%, after 30 years it would grow to approximately $7,612 without adding any additional funds. This demonstrates how starting early with even small investments can lead to substantial growth over time.</p>
+                    </div>
+                    
+                    <h2 id="budgeting">Budgeting</h2>
+                    <p>A budget is a financial plan that helps you track your income and expenses over a specific period. Creating and sticking to a budget is fundamental to achieving financial stability and working toward your goals.</p>
+                    
+                    <h3>Creating an Effective Budget</h3>
+                    <ol>
+                        <li><strong>Track your income:</strong> List all sources of income, including your salary, freelance work, investments, etc.</li>
+                        <li><strong>Monitor your expenses:</strong> Keep track of all your spending for at least one month to understand your spending patterns.</li>
+                        <li><strong>Categorize expenses:</strong> Divide your expenses into categories such as housing, transportation, food, utilities, entertainment, etc.</li>
+                        <li><strong>Differentiate between needs and wants:</strong> Identify which expenses are essential (needs) and which are optional (wants).</li>
+                        <li><strong>Set financial goals:</strong> Define short-term and long-term goals to help guide your budgeting decisions.</li>
+                        <li><strong>Create your budget:</strong> Allocate your income to different expense categories, ensuring that your total expenses do not exceed your income.</li>
+                        <li><strong>Review and adjust:</strong> Regularly review your budget and make adjustments as needed.</li>
+                    </ol>
+                    
+                    <h3>Popular Budgeting Methods</h3>
+                    <div class="info-grid">
+                        <div class="grid-item">
+                            <h3>50/30/20 Rule</h3>
+                            <p>Allocate 50% of your income to needs, 30% to wants, and 20% to savings and debt repayment. This simple approach provides flexibility while ensuring you save consistently.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Zero-Based Budget</h3>
+                            <p>Assign every dollar of your income a specific purpose, so your income minus expenses equals zero. This method helps eliminate wasteful spending and maximizes your money's potential.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Envelope System</h3>
+                            <p>Divide cash into envelopes labeled with different expense categories. Once an envelope is empty, you stop spending in that category until the next budgeting period.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Pay Yourself First</h3>
+                            <p>Automatically set aside a portion of your income for savings before paying bills or other expenses. This ensures that saving becomes a priority rather than an afterthought.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-card">
+                        <h3>Common Budgeting Mistakes to Avoid</h3>
+                        <ul>
+                            <li><strong>Being unrealistic:</strong> Setting overly restrictive budgets that are impossible to maintain</li>
+                            <li><strong>Forgetting irregular expenses:</strong> Not accounting for quarterly or annual bills</li>
+                            <li><strong>Ignoring small expenses:</strong> Small purchases can add up quickly</li>
+                            <li><strong>Not adjusting your budget:</strong> Financial situations change, and your budget should too</li>
+                            <li><strong>Failing to track spending:</strong> Without monitoring, it's easy to exceed budget limits</li>
+                        </ul>
+                    </div>
+                    
+                    <h2 id="saving">Saving</h2>
+                    <p>Saving money provides financial security, helps you prepare for emergencies, and allows you to work toward your long-term goals. Developing good saving habits is crucial for building wealth and achieving financial freedom.</p>
+                    
+                    <h3>Emergency Fund</h3>
+                    <p>An emergency fund is a financial safety net that covers unexpected expenses or income disruptions. Financial experts generally recommend having 3-6 months' worth of essential expenses saved in an easily accessible account.</p>
+                    
+                    <div class="info-card">
+                        <h3>Steps to Build Your Emergency Fund</h3>
+                        <ol>
+                            <li>Start small with a goal of $1,000 for immediate emergencies</li>
+                            <li>Gradually increase your fund until you have 3-6 months of expenses saved</li>
+                            <li>Keep your emergency fund in a high-yield savings account for easy access</li>
+                            <li>Only use the fund for genuine emergencies, not regular expenses</li>
+                            <li>Replenish the fund as soon as possible after using it</li>
+                        </ol>
+                    </div>
+                    
+                    <h3>Saving Strategies</h3>
+                    <ul>
+                        <li><strong>Automate your savings:</strong> Set up automatic transfers from your checking account to your savings account on payday</li>
+                        <li><strong>Save windfalls:</strong> Put tax refunds, bonuses, gifts, and other unexpected income directly into savings</li>
+                        <li><strong>Use the 24-hour rule:</strong> Wait 24 hours before making non-essential purchases to avoid impulse buying</li>
+                        <li><strong>Find small savings opportunities:</strong> Cancel unused subscriptions, reduce dining out, or find more affordable alternatives for regular expenses</li>
+                        <li><strong>Save raises and bonuses:</strong> When you receive a pay increase, save the difference rather than increasing your spending</li>
+                    </ul>
+                    
+                    <h3>Types of Savings Accounts</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Account Type</th>
+                            <th>Key Features</th>
+                            <th>Best For</th>
+                        </tr>
+                        <tr>
+                            <td>Regular Savings Account</td>
+                            <td>Low minimum balance, easy access, low interest rates</td>
+                            <td>Beginners, everyday savings</td>
+                        </tr>
+                        <tr>
+                            <td>High-Yield Savings Account</td>
+                            <td>Higher interest rates, sometimes minimum balance requirements</td>
+                            <td>Emergency funds, medium-term goals</td>
+                        </tr>
+                        <tr>
+                            <td>Money Market Account</td>
+                            <td>Higher interest rates, limited check writing, higher minimum balance</td>
+                            <td>Larger emergency funds, saving for specific goals</td>
+                        </tr>
+                        <tr>
+                            <td>Certificate of Deposit (CD)</td>
+                            <td>Fixed interest rate, fixed term, penalties for early withdrawal</td>
+                            <td>Long-term savings with known time horizons</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Saving for Specific Goals</h3>
+                    <p>Beyond emergency funds, saving for specific goals helps you achieve major life milestones without taking on excessive debt. Common savings goals include:</p>
+                    
+                    <div class="info-grid">
+                        <div class="grid-item">
+                            <h3>Home Purchase</h3>
+                            <p>Save for a down payment (typically 3-20% of home price) plus closing costs and moving expenses.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Retirement</h3>
+                            <p>Utilize tax-advantaged accounts like 401(k)s and IRAs to save for your future non-working years.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Education</h3>
+                            <p>Consider 529 plans or Education Savings Accounts to save for college or other educational expenses.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Major Purchases</h3>
+                            <p>Save for vehicles, home renovations, vacations, or other large expenses to avoid debt.</p>
+                        </div>
+                    </div>
+                    
+                    <h2 id="investing">Investing</h2>
+                    <p>Investing allows your money to grow through the power of compound returns. While saving protects your money, investing helps it grow over time, enabling you to build wealth and achieve long-term financial goals.</p>
+                    
+                    <h3>Investment Basics</h3>
+                    <p>Before investing, it's important to understand key concepts that will help you make informed decisions:</p>
+                    
+                    <ul>
+                        <li><strong>Risk vs. Return:</strong> Generally, investments with higher potential returns come with higher risks</li>
+                        <li><strong>Diversification:</strong> Spreading investments across different asset classes to reduce risk</li>
+                        <li><strong>Asset Allocation:</strong> The division of your investment portfolio among different asset categories</li>
+                        <li><strong>Time Horizon:</strong> The length of time you expect to hold an investment before needing the funds</li>
+                        <li><strong>Liquidity:</strong> How quickly an investment can be converted to cash without significant loss in value</li>
+                    </ul>
+                    
+                    <h3>Common Investment Types</h3>
+                    <div class="info-grid">
+                        <div class="grid-item">
+                            <h3>Stocks</h3>
+                            <p>Ownership shares in a company. Stocks offer growth potential and sometimes dividends but come with higher volatility.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Bonds</h3>
+                            <p>Loans to a company or government that pay regular interest. Bonds are generally less volatile than stocks but offer lower returns.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Mutual Funds</h3>
+                            <p>Pooled investments managed by professionals. Mutual funds provide instant diversification across many securities.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>ETFs</h3>
+                            <p>Exchange-Traded Funds combine features of stocks and mutual funds, offering diversification with lower fees and greater flexibility.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Real Estate</h3>
+                            <p>Property investments that can provide rental income and appreciation. Real estate offers tangible assets but requires more capital and management.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Retirement Accounts</h3>
+                            <p>Tax-advantaged accounts like 401(k)s and IRAs designed specifically for retirement savings.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Investment Strategies for Beginners</h3>
+                    <ol>
+                        <li><strong>Start with retirement accounts:</strong> Take advantage of employer matches and tax benefits</li>
+                        <li><strong>Consider index funds:</strong> Low-cost funds that track market indexes provide broad diversification</li>
+                        <li><strong>Dollar-cost averaging:</strong> Invest a fixed amount regularly regardless of market conditions</li>
+                        <li><strong>Reinvest dividends:</strong> Allow your investment returns to compound over time</li>
+                        <li><strong>Keep fees low:</strong> High fees can significantly reduce your investment returns over time</li>
+                    </ol>
+                    
+                    <div class="warning-card">
+                        <h3>Investment Risks to Consider</h3>
+                        <ul>
+                            <li><strong>Market risk:</strong> The possibility of losing money due to overall market declines</li>
+                            <li><strong>Inflation risk:</strong> The risk that your investment returns won't keep pace with inflation</li>
+                            <li><strong>Liquidity risk:</strong> The possibility of not being able to sell an investment when needed</li>
+                            <li><strong>Concentration risk:</strong> Having too much of your portfolio in a single investment</li>
+                            <li><strong>Emotional risk:</strong> Making poor decisions based on fear or greed rather than a rational plan</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h3>The Rule of 72</h3>
+                        <p>The Rule of 72 provides a simple way to estimate how long it will take for an investment to double in value. Simply divide 72 by the annual rate of return:</p>
+                        <p><strong>Years to double = 72 ÷ Annual return rate</strong></p>
+                        <p>For example, an investment with a 8% annual return would take approximately 9 years to double (72 ÷ 8 = 9).</p>
+                    </div>
+                    
+                    <h2 id="resources">Additional Resources</h2>
+                    <p>Continue your financial education journey with these recommended resources:</p>
+                    
+                    <div class="info-grid">
+                        <div class="grid-item">
+                            <h3>Financial Calculators</h3>
+                            <p>Use our interactive calculators to plan for retirement, calculate mortgage payments, or create a debt repayment strategy.</p>
+                            <a href="#" class="resource-btn">Access Calculators</a>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Budget Templates</h3>
+                            <p>Download free budget templates to help you track your income and expenses and stay on top of your financial goals.</p>
+                            <a href="#" class="resource-btn">Download Templates</a>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Financial Glossary</h3>
+                            <p>Access our comprehensive glossary of financial terms to better understand complex financial concepts and jargon.</p>
+                            <a href="#" class="resource-btn">View Glossary</a>
+                        </div>
+                        <div class="grid-item">
+                            <h3>Interactive Courses</h3>
+                            <p>Enroll in our structured online courses to deepen your understanding of various financial topics.</p>
+                            <a href="#" class="resource-btn">Browse Courses</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Finwise</h3>
+                    <p>Empowering financial literacy and independence through accessible education.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="information.html">Learn</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Financial Calculators</a></li>
+                        <li><a href="#">Glossary</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>info@finwise.com</li>
+                        <li>1-800-FINWISE</li>
+                        <li>123 Financial Street</li>
+                        <li>New York, NY 10001</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Finwise. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
